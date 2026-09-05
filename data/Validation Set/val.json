@@ -1,0 +1,62 @@
+[
+  {
+    "question": "Which specific technology is outlined within this document?",
+    "answer": "An artificial intelligence-driven virtual voice helper."
+  },
+  {
+    "question": "Which safety protocol is used to safeguard the voice AI?",
+    "answer": "Safe facial identification."
+  },
+  {
+    "question": "In what way does the Internet of Things feature assist the virtual helper?",
+    "answer": "It enables communication with local smart appliances, facilitating situation-aware replies and the automation of chores."
+  },
+  {
+    "question": "Who wrote the documentation for this system?",
+    "answer": "The creator is Nansi Jain."
+  },
+  {
+    "question": "In what city and country can Inderprastha Engineering College be found?",
+    "answer": "It is situated in Ghaziabad, India."
+  },
+  {
+    "question": "What is the designated position of the individual referenced in the text?",
+    "answer": "They are classified as a pupil or learner."
+  },
+  {
+    "question": "What academic division is linked to the project overview?",
+    "answer": "The Computer Science and Engineering (Data Science) faculty."
+  },
+  {
+    "question": "How do the facial scanning and Internet of Things capabilities complement one another?",
+    "answer": "Facial scanning delivers a safe way to verify users, guaranteeing that just approved people gain entry. Meanwhile, the Internet of Things connection permits the AI to connect with surrounding smart appliances, producing context-sensitive actions and automated routines."
+  },
+  {
+    "question": "Who holds the title of president for this voice AI initiative?",
+    "answer": "There are no details regarding a president of the virtual assistant project in the source material."
+  },
+  {
+    "question": "What nation is responsible for creating the AI voice helper discussed in the document?",
+    "answer": "The document lacks a direct mention of the inventing country, although the creator is connected to an Indian academic facility."
+  },
+  {
+    "question": "Is the individual named Nansi Jain classified as a pupil in the text?",
+    "answer": "Incorrect, Nansi Jain is identified as the creator of the system's overview."
+  },
+  {
+    "question": "Did Sweta write the documentation for the virtual assistant?",
+    "answer": "False, Sweta is documented purely as an enrolled student."
+  },
+  {
+    "question": "Is fingerprint scanning utilized by the AI helper rather than facial identification?",
+    "answer": "Negative, the integrated protective measure for the assistant is secure facial recognition."
+  },
+  {
+    "question": "Was this technology built exclusively for gaming consoles rather than intelligent appliances?",
+    "answer": "Incorrect, the platform features Internet of Things capabilities tailored specifically for smart devices."
+  },
+  {
+    "question": "Is Bluetooth sensor technology the primary integration method instead of IoT?",
+    "answer": "False, the framework depends on an Internet of Things connection to engage with smart electronics."
+  }
+]

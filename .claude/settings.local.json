@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(file /usr/share/ollama/.ollama/models/blobs/*)",
+      "Bash(dir)",
+      "Bash(dir final_lora_adapter)",
+      "Bash(dir local_models)",
+      "Bash(dir local_modelsQwen3-4B)",
+      "Bash(ollama --version)",
+      "Bash(ollama list)",
+      "Bash(ollama create qwen3-25ep -f Modelfile)",
+      "Bash(./llama-b7952-bin-win-cuda-12.4-x64/llama-cli.exe --help)",
+      "Bash(./llama-b7952-bin-win-cuda-12.4-x64/llama-cli.exe -m ./llama-b7952-bin-win-cuda-12.4-x64/Qwen3-4B-Q4_K_M.gguf --lora final_lora_adapter -p \"Your prompt here\")",
+      "Bash(./llama-b7952-bin-win-cuda-12.4-x64/llama-cli.exe -m ./llama-b7952-bin-win-cuda-12.4-x64/Qwen3-4B-Q4_K_M.gguf --lora final_lora_adapter/adapter_model.safetensors -p \"Hello, how are you?\" --no-penalize-nl -n 100)",
+      "Bash(./llama-b7952-bin-win-cuda-12.4-x64/llama-cli.exe -m ./llama-b7952-bin-win-cuda-12.4-x64/Qwen3-4B-Q4_K_M.gguf --lora final_lora_adapter/adapter_model.safetensors -p \"Hello, how are you?\" -n 100)",
+      "Bash(ls -la llama-b7952-bin-win-cuda-12.4-x64/llama-*convert*)",
+      "Bash(ls -la llama-b7952-bin-win-cuda-12.4-x64/*convert*)",
+      "Bash(ls -la llama-b7952-bin-win-cuda-12.4-x64/*.exe)",
+      "Bash(conda env list)",
+      "Bash(./llama-b7952-bin-win-cuda-12.4-x64/llama-server.exe --help)",
+      "Bash(pip --version)",
+      "Bash(python3 -c \"import torch; import json; print\\(''PyTorch version:'', torch.__version__\\)\")",
+      "Bash(python3 -c \"import sys; print\\(sys.path\\)\")"
+    ]
+  }
+}

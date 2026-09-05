@@ -1,0 +1,12 @@
+[  {
+    "question": "What is the default behavior of TM1 regarding cube loading on server startup?",
+    "answer": "By default, TM1 loads all cubes into memory when a server starts."
+  },
+  {
+    "question": "How does setting certain cubes to load on demand affect resource consumption in TM1?",
+    "answer": "Setting infrequently accessed cubes to load only when a client attempts to access the cube data conserves server resources."
+  },
+  {
+    "question": "What is one potential benefit of configuring cubes to load on demand instead of loading them all at startup?",
+    "answer": "Configuring cubes to load on demand can significantly reduce resource consumption, especially for infrequently accessed cubes."
+  }]

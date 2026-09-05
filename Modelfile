@@ -1,0 +1,2 @@
+# Point to your merged safetensors directory
+FROM ./mergedmodelqwen

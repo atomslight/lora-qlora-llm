@@ -1,0 +1,70 @@
+Microsoft Windows [Version 10.0.26200.8037]
+(c) Microsoft Corporation. All rights reserved.
+
+E:\Ayyub_git\EndToEndLoRA>conda activate llm
+
+(llm) E:\Ayyub_git\EndToEndLoRA>python train1.py
+{'question': 'I am a developer trying to name my new application that uses AI for voice and face verification. What is the exact title of the project by Nansi Jain that I should look up for reference?', 'answer': "For reference, you should look up the project titled 'AI-Powered Virtual Voice Assistant with Secure Face Recognition and IoT Integration.' This title accurately reflects the combination of AI, voice, and face verification technologies you are interested in."}
+Total samples: 4574
+Bin distribution:
+answer_length_bin
+0    908
+1    922
+2    913
+3    916
+4    915
+Name: count, dtype: int64
+Train size: 3659 | Val size: 915
+Map: 100%|████████████████████████████████████████████████████████████████| 3659/3659 [00:00<00:00, 7022.53 examples/s]
+Map: 100%|██████████████████████████████████████████████████████████████████| 915/915 [00:00<00:00, 7625.57 examples/s]
+Filter: 100%|███████████████████████████████████████████████████████████| 3659/3659 [00:00<00:00, 262229.10 examples/s]
+Filter: 100%|█████████████████████████████████████████████████████████████| 915/915 [00:00<00:00, 455037.72 examples/s]
+After cleaning — Train: 3659 | Val: 915
+Loading checkpoint shards: 100%|█████████████████████████████████████████████████████████| 2/2 [00:17<00:00,  8.55s/it]
+C:\Users\ayyub\.conda\envs\llm\lib\site-packages\huggingface_hub\utils\_deprecation.py:100: FutureWarning: Deprecated argument(s) used in '__init__': dataset_text_field, packing. Will not be supported from version '0.13.0'.
+
+Deprecated positional argument(s) used in SFTTrainer, please use the SFTConfig to set these arguments instead.
+  warnings.warn(message, FutureWarning)
+C:\Users\ayyub\.conda\envs\llm\lib\site-packages\trl\trainer\sft_trainer.py:212: UserWarning: You passed a `packing` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`.
+  warnings.warn(
+C:\Users\ayyub\.conda\envs\llm\lib\site-packages\trl\trainer\sft_trainer.py:309: UserWarning: You didn't pass a `max_seq_length` argument to the SFTTrainer, this will default to 1024
+  warnings.warn(
+C:\Users\ayyub\.conda\envs\llm\lib\site-packages\trl\trainer\sft_trainer.py:328: UserWarning: You passed a `dataset_text_field` argument to the SFTTrainer, the value you passed will override the one in the `SFTConfig`.
+  warnings.warn(
+Starting QLoRA fine-tuning...
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+  0%|                                                                                          | 0/203 [00:00<?, ?it/s]`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+C:\Users\ayyub\.conda\envs\llm\lib\site-packages\torch\_dynamo\eval_frame.py:632: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.5 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+{'loss': 2.4322, 'grad_norm': 1.4386626482009888, 'learning_rate': 1.911330049261084e-05, 'epoch': 0.35}
+{'loss': 1.6296, 'grad_norm': 0.5387076139450073, 'learning_rate': 1.8128078817733993e-05, 'epoch': 0.7}
+{'loss': 1.443, 'grad_norm': 0.32253575325012207, 'learning_rate': 1.7142857142857142e-05, 'epoch': 1.04}
+{'loss': 1.3607, 'grad_norm': 0.30248498916625977, 'learning_rate': 1.6157635467980298e-05, 'epoch': 1.39}
+{'loss': 1.2973, 'grad_norm': 0.2820371687412262, 'learning_rate': 1.5172413793103448e-05, 'epoch': 1.74}
+{'loss': 1.2477, 'grad_norm': 0.23371830582618713, 'learning_rate': 1.4187192118226602e-05, 'epoch': 2.07}
+{'loss': 1.1981, 'grad_norm': 0.2208038866519928, 'learning_rate': 1.3201970443349755e-05, 'epoch': 2.42}
+{'loss': 1.1655, 'grad_norm': 0.21875685453414917, 'learning_rate': 1.2216748768472909e-05, 'epoch': 2.78}
+{'loss': 1.1352, 'grad_norm': 0.22677145898342133, 'learning_rate': 1.123152709359606e-05, 'epoch': 3.11}
+{'loss': 1.1166, 'grad_norm': 0.230523020029068, 'learning_rate': 1.0246305418719214e-05, 'epoch': 3.46}
+{'eval_loss': 1.1291741132736206, 'eval_runtime': 100.24, 'eval_samples_per_second': 1.127, 'eval_steps_per_second': 0.569, 'epoch': 3.46}
+{'loss': 1.1021, 'grad_norm': 0.2367110550403595, 'learning_rate': 9.261083743842364e-06, 'epoch': 3.81}
+{'loss': 1.0825, 'grad_norm': 0.24588622152805328, 'learning_rate': 8.275862068965518e-06, 'epoch': 4.14}
+{'loss': 1.0812, 'grad_norm': 0.2427167147397995, 'learning_rate': 7.290640394088671e-06, 'epoch': 4.49}
+{'loss': 1.0602, 'grad_norm': 0.24243728816509247, 'learning_rate': 6.305418719211823e-06, 'epoch': 4.85}
+{'loss': 1.0546, 'grad_norm': 0.24804051220417023, 'learning_rate': 5.320197044334976e-06, 'epoch': 5.18}
+{'loss': 1.0467, 'grad_norm': 0.24618279933929443, 'learning_rate': 4.334975369458129e-06, 'epoch': 5.53}
+{'loss': 1.0441, 'grad_norm': 0.2538585662841797, 'learning_rate': 3.349753694581281e-06, 'epoch': 5.88}
+{'loss': 1.0328, 'grad_norm': 0.25871631503105164, 'learning_rate': 2.3645320197044334e-06, 'epoch': 6.21}
+{'loss': 1.0373, 'grad_norm': 0.25468066334724426, 'learning_rate': 1.3793103448275862e-06, 'epoch': 6.56}
+{'loss': 1.0289, 'grad_norm': 0.26088497042655945, 'learning_rate': 3.9408866995073894e-07, 'epoch': 6.92}
+{'eval_loss': 1.0594770908355713, 'eval_runtime': 100.3739, 'eval_samples_per_second': 1.126, 'eval_steps_per_second': 0.568, 'epoch': 6.92}
+{'train_runtime': 15459.5106, 'train_samples_per_second': 0.205, 'train_steps_per_second': 0.013, 'train_loss': 1.226911358058159, 'epoch': 7.0}
+100%|██████████████████████████████████████████████████████████████████████████████| 203/203 [4:17:39<00:00, 76.16s/it]
+
+Running final evaluation on validation set...
+100%|██████████████████████████████████████████████████████████████████████████████████| 57/57 [01:39<00:00,  1.74s/it]
+Final Eval Loss : 1.0595
+Full eval results: {'eval_loss': 1.0594568252563477, 'eval_runtime': 100.857, 'eval_samples_per_second': 1.12, 'eval_steps_per_second': 0.565, 'epoch': 7.0}
+Training finished successfully!
+
+(llm) E:\Ayyub_git\EndToEndLoRA>

@@ -1,0 +1,22 @@
+litellm.exceptions.APIConnectionError: litellm.APIConnectionError: OllamaException - {"StatusCode":429,"Status":"429 Too Many Requests","error":"too many concurrent requests"}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ayyub\.conda\envs\llm\lib\site-packages\opik\evaluation\engine\metrics_evaluator.py", line 83, in _compute_metric_scores
+    result = metric.score(**mapped_scoring_inputs)
+  File "C:\Users\ayyub\.conda\envs\llm\lib\site-packages\opik\decorator\base_track_decorator.py", line 359, in wrapper
+    raise func_exception
+  File "C:\Users\ayyub\.conda\envs\llm\lib\site-packages\opik\decorator\base_track_decorator.py", line 331, in wrapper
+    result = func(*args, **kwargs)
+  File "C:\Users\ayyub\.conda\envs\llm\lib\site-packages\opik\evaluation\metrics\llm_judges\g_eval\metric.py", line 209, in score
+    chain_of_thought=self.llm_chain_of_thought(),
+  File "C:\Users\ayyub\.conda\envs\llm\lib\site-packages\opik\evaluation\metrics\llm_judges\g_eval\metric.py", line 102, in llm_chain_of_thought
+    generated = self._model.generate_string(input=prompt)
+  File "C:\Users\ayyub\.conda\envs\llm\lib\site-packages\opik\evaluation\models\litellm\litellm_chat_model.py", line 259, in generate_string
+    with base_model.get_provider_response(
+  File "C:\Users\ayyub\.conda\envs\llm\lib\contextlib.py", line 119, in __enter__
+    return next(self.gen)
+  File "C:\Users\ayyub\.conda\envs\llm\lib\site-packages\opik\evaluation\models\base_model.py", line 135, in get_provider_response
+    raise exceptions.BaseLLMError(str(e))
+opik.exceptions.BaseLLMError: LLM infrastructure error: litellm.APIConnectionError: OllamaException - {"StatusCode":429,"Status":"429 Too Many Requests","error":"too many concurrent requests"}

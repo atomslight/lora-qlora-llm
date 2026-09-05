@@ -1,0 +1,3 @@
+start opik localhost opik-main/./opik.sh by docker on
+start opikserver.py for this you prior need to merge the model and specify in this file
+start eval_success.py finally to run eval by defined metric and specifications
