@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Check if dev-runner.sh exists
+if [ ! -f scripts/dev-runner.sh ]; then
+  echo "dev-runner.sh not found. Cannot run linting checks."
+  exit 1
+fi
+
+# Check for staged Java files
+if git diff --cached --name-only | grep -E '\.java$'; then
+  echo "Java files have been changed. Running Spotless..."
+
+  cd scripts || exit 1
+
+  # Run Backend linting
+  if ! ./dev-runner.sh --lint-be; then
+    echo "Spotless found issues and failed to apply fixes. Please fix the issues before committing."
+    exit 1
+  fi
+
+  # Add any potentially modified files by Spotless back to the index
+  git add -u
+  
+  cd .. || exit 1
+else
+  echo "No Java files changed. Skipping Spotless."
+fi
+
+# Check for staged frontend files
+if git diff --cached --name-only | grep -E '^apps/opik-frontend/'; then
+  echo "Frontend files have been changed. Running lint and typecheck..."
+
+  cd scripts || exit 1
+
+  # Run lint with auto-fix
+  if ! ./dev-runner.sh --lint-fe; then
+    echo "Lint failed. Please fix the remaining linting issues before committing."
+    exit 1
+  fi
+
+  # Add any potentially modified files by lint back to the index
+  git add -u
+
+  cd .. || exit 1
+else
+  echo "No frontend files changed. Skipping lint and typecheck."
+fi
+

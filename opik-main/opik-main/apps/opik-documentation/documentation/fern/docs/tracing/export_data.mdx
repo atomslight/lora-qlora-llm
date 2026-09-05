@@ -1,0 +1,313 @@
+---
+headline: Export by SDK, REST, and UI | Opik Documentation
+og:description: Learn to export traces and spans using Opik SDK, REST, and UI for
+  enhanced model tuning and deeper analysis.
+og:site_name: Opik Documentation
+og:title: Export Data Efficiently with Opik
+title: Export by SDK, REST, and UI
+toc_max_heading_level: 4
+---
+
+When working with Opik, it is important to be able to export traces and spans so that you can use them to fine-tune your models or run deeper analysis.
+
+You can export the traces you have logged to the Opik platform using:
+
+1. Using the Opik SDK: You can use the Python SDK methods ([`Opik.search_traces`](https://www.comet.com/docs/opik/python-sdk-reference/Opik.html#opik.Opik.search_traces) and [`Opik.search_spans`](https://www.comet.com/docs/opik/python-sdk-reference/Opik.html#opik.Opik.search_spans)) or the TypeScript SDK method (`client.searchTraces()`) to export traces and spans.
+2. Using the Opik REST API: You can use the [`/traces`](/reference/rest-api/traces/get-traces-by-project) and [`/spans`](/reference/rest-api/spans/get-spans-by-project) endpoints to export traces and spans.
+3. Using the UI: Once you have selected the traces or spans you want to export, you can click on the `Export CSV` button in the `Actions` dropdown.
+
+<Tip>
+  The recommended way to export traces is to use the SDK methods in the Opik
+  Python SDK
+  ([`Opik.search_traces`](https://www.comet.com/docs/opik/python-sdk-reference/Opik.html#opik.Opik.search_traces)
+  and
+  [`Opik.search_spans`](https://www.comet.com/docs/opik/python-sdk-reference/Opik.html#opik.Opik.search_spans))
+  or TypeScript SDK (`client.searchTraces()`).
+</Tip>
+
+## Using the Opik SDK
+
+### Exporting traces
+
+The Python SDK [`Opik.search_traces`](https://www.comet.com/docs/opik/python-sdk-reference/Opik.html#opik.Opik.search_traces) method and TypeScript SDK `client.searchTraces()` method allow you to both export all the traces in a project or search for specific traces and export them.
+
+#### Exporting all traces
+
+To export all traces, you will need to specify a `max_results` / `maxResults` value that is higher than the total number of traces in your project:
+
+<Tabs>
+  <Tab value="Python" title="Python">
+    ```python
+    import opik
+
+    client = opik.Opik()
+
+    traces = client.search_traces(project_name="Default project", max_results=1000000)
+    ```
+
+  </Tab>
+  <Tab value="TypeScript" title="TypeScript">
+    ```typescript
+    import { Opik } from "opik";
+
+    const client = new Opik();
+
+    const traces = await client.searchTraces({
+      projectName: "Default project",
+      maxResults: 1000000
+    });
+    ```
+
+  </Tab>
+</Tabs>
+
+#### Search for specific traces
+
+You can use the `filter_string` (Python) / `filterString` (TypeScript) parameter to search for specific traces:
+
+<Tabs>
+  <Tab value="Python" title="Python">
+    ```python
+    import opik
+
+    client = opik.Opik()
+
+    traces = client.search_traces(
+      project_name="Default project",
+      filter_string='input contains "Opik"'
+    )
+
+    # Convert to Dict if required
+    traces = [trace.dict() for trace in traces]
+    ```
+
+  </Tab>
+  <Tab value="TypeScript" title="TypeScript">
+    ```typescript
+    import { Opik } from "opik";
+
+    const client = new Opik();
+
+    const traces = await client.searchTraces({
+      projectName: "Default project",
+      filterString: 'input contains "Opik"'
+    });
+    ```
+
+  </Tab>
+</Tabs>
+
+The `filter_string` (Python) / `filterString` (TypeScript) parameter should be a string in the following format using Opik Query Language (OQL):
+
+```
+"<COLUMN> <OPERATOR> <VALUE> [AND <COLUMN> <OPERATOR> <VALUE>]*"
+```
+
+**Supported columns and operators:**
+
+| Column                    | Type       | Operators                                                                   |
+| ------------------------- | ---------- | --------------------------------------------------------------------------- |
+| `id`                      | String     | `=`, `!=`, `contains`, `not_contains`, `starts_with`, `ends_with`, `>`, `<` |
+| `name`                    | String     | `=`, `!=`, `contains`, `not_contains`, `starts_with`, `ends_with`, `>`, `<` |
+| `created_by`              | String     | `=`, `!=`, `contains`, `not_contains`, `starts_with`, `ends_with`, `>`, `<` |
+| `thread_id`               | String     | `=`, `!=`, `contains`, `not_contains`, `starts_with`, `ends_with`, `>`, `<` |
+| `type`                    | String     | `=`, `!=`, `contains`, `not_contains`, `starts_with`, `ends_with`, `>`, `<` |
+| `model`                   | String     | `=`, `!=`, `contains`, `not_contains`, `starts_with`, `ends_with`, `>`, `<` |
+| `provider`                | String     | `=`, `!=`, `contains`, `not_contains`, `starts_with`, `ends_with`, `>`, `<` |
+| `status`                  | String     | `=`, `contains`, `not_contains`                                             |
+| `start_time`              | DateTime   | `=`, `>`, `<`, `>=`, `<=`                                                   |
+| `end_time`                | DateTime   | `=`, `>`, `<`, `>=`, `<=`                                                   |
+| `input`                   | String     | `=`, `contains`, `not_contains`                                             |
+| `output`                  | String     | `=`, `contains`, `not_contains`                                             |
+| `metadata`                | Dictionary | `=`, `contains`, `>`, `<`                                                   |
+| `feedback_scores`         | Numeric    | `=`, `>`, `<`, `>=`, `<=`, `is_empty`, `is_not_empty`                      |
+| `tags`                    | List       | `contains`                                                                  |
+| `usage.total_tokens`      | Numeric    | `=`, `!=`, `>`, `<`, `>=`, `<=`                                             |
+| `usage.prompt_tokens`     | Numeric    | `=`, `!=`, `>`, `<`, `>=`, `<=`                                             |
+| `usage.completion_tokens` | Numeric    | `=`, `!=`, `>`, `<`, `>=`, `<=`                                             |
+| `duration`                | Numeric    | `=`, `!=`, `>`, `<`, `>=`, `<=`                                             |
+| `number_of_messages`      | Numeric    | `=`, `!=`, `>`, `<`, `>=`, `<=`                                             |
+| `total_estimated_cost`    | Numeric    | `=`, `!=`, `>`, `<`, `>=`, `<=`                                             |
+
+**Rules:**
+
+- String values must be wrapped in double quotes
+- Multiple conditions can be combined with `AND` (OR is not supported)
+- DateTime fields require ISO 8601 format (e.g., "2024-01-01T00:00:00Z")
+- Use dot notation for nested objects: `metadata.model`, `feedback_scores.accuracy`
+
+Here are some full examples of using `filter_string` / `filterString` values in searches:
+
+<Tabs>
+  <Tab value="Python" title="Python">
+    ```python
+    import opik
+
+    client = opik.Opik(
+        project_name="Default project"
+    )
+
+    # Search for traces where the input contains text
+    traces = client.search_traces(
+      filter_string='input contains "Opik"'
+    )
+
+    # Search for traces that were logged after a specific date
+    traces = client.search_traces(filter_string='start_time >= "2024-01-01T00:00:00Z"')
+
+    # Search for traces that have a specific tag
+    traces = client.search_traces(filter_string='tags contains "production"')
+
+    # Search for traces based on the number of tokens used
+    traces = client.search_traces(filter_string='usage.total_tokens > 1000')
+
+    # Search for traces based on the model used
+    traces = client.search_traces(filter_string='metadata.model = "gpt-4o"')
+
+    # Search for traces that have a feedback score (not empty)
+    traces = client.search_traces(filter_string='feedback_scores.user_rating is_not_empty')
+
+    # Search for traces that don't have a feedback score (empty)
+    traces = client.search_traces(filter_string='feedback_scores.user_rating is_empty')
+    ```
+
+  </Tab>
+  <Tab value="TypeScript" title="TypeScript">
+    ```typescript
+    import { Opik } from "opik";
+
+    const client = new Opik({
+      projectName: "Default project"
+    });
+
+    // Search for traces where the input contains text
+    const traces1 = await client.searchTraces({
+      filterString: 'input contains "Opik"'
+    });
+
+    // Search for traces that were logged after a specific date
+    const traces2 = await client.searchTraces({
+      filterString: 'start_time >= "2024-01-01T00:00:00Z"'
+    });
+
+    // Search for traces that have a specific tag
+    const traces3 = await client.searchTraces({
+      filterString: 'tags contains "production"'
+    });
+
+    // Search for traces based on the number of tokens used
+    const traces4 = await client.searchTraces({
+      filterString: 'usage.total_tokens > 1000'
+    });
+
+    // Search for traces based on the model used
+    const traces5 = await client.searchTraces({
+      filterString: 'metadata.model = "gpt-4o"'
+    });
+
+    // Search for traces that have a feedback score (not empty)
+    const traces6 = await client.searchTraces({
+      filterString: 'feedback_scores.user_rating is_not_empty'
+    });
+
+    // Search for traces that don't have a feedback score (empty)
+    const traces7 = await client.searchTraces({
+      filterString: 'feedback_scores.user_rating is_empty'
+    });
+    ```
+
+  </Tab>
+</Tabs>
+
+<Tip>
+If your `feedback_scores` key contains spaces, you will need to wrap
+it in double quotes:
+
+`'feedback_score."My Score" > 0'`
+
+If the `feedback_score` key contains both spaces and double quotes, you will need to escape the double quotes as `""`:
+
+`'feedback_score."Score ""with"" Quotes" > 0'`
+
+or by using different quotes, surrounding in triple-quotes, like this:
+
+`'''feedback_scores.'Accuracy "Happy Index"' < 0.8'''`
+
+</Tip>
+
+### Exporting spans
+
+You can export spans using the [`Opik.search_spans`](https://www.comet.com/docs/opik/python-sdk-reference/Opik.html#opik.Opik.search_spans) method. This methods allows you to search for spans based on `trace_id` or based on a filter string.
+
+#### Exporting spans based on `trace_id`
+
+To export all the spans associated with a specific trace, you can use the `trace_id` parameter:
+
+```python
+import opik
+
+client = opik.Opik()
+
+spans = client.search_spans(
+  project_name="Default project",
+  trace_id="067092dc-e639-73ff-8000-e1c40172450f"
+)
+```
+
+#### Search for specific spans
+
+You can use the `filter_string` parameter to search for specific spans:
+
+```python
+import opik
+
+client = opik.Opik()
+
+spans = client.search_spans(
+  project_name="Default project",
+  filter_string='input contains "Opik"'
+)
+```
+
+<Tip>
+  The `filter_string` parameter should follow the same format as the
+  `filter_string` parameter in the `Opik.search_traces` method as [defined
+  above](#search-for-specific-traces).
+</Tip>
+
+## Using the Opik REST API
+
+To export traces using the Opik REST API, you can use the [`/traces`](/reference/rest-api/traces/get-traces-by-project) endpoint and the [`/spans`](/reference/rest-api/spans/get-spans-by-project) endpoint. These endpoints are paginated so you will need to make multiple requests to retrieve all the traces or spans you want.
+
+To search for specific traces or spans, you can use the `filter` parameter. While this is a string parameter, it does not follow the same format as the `filter_string` parameter in the Opik SDK. Instead it is a list of json objects with the following format:
+
+```json
+[
+  {
+    "field": "name",
+    "type": "string",
+    "operator": "=",
+    "value": "Opik"
+  }
+]
+```
+
+<Warning>
+  The `filter` parameter was designed to be used with the Opik UI and has
+  therefore limited flexibility. If you need more flexibility, please raise an
+  issue on [GitHub](https://github.com/comet-ml/opik/issues) so we can help.
+</Warning>
+
+## Using the UI
+
+To export traces as a CSV file from the UI, you can simply select the traces or spans you wish to export and click on `Export CSV` in the `Actions` dropdown:
+
+<Frame>
+  <img src="/img/tracing/download_traces.png" />
+</Frame>
+
+<Tip>
+  The UI only allows you to export up to 100 traces or spans at a time as it is
+  linked to the page size of the traces table. If you need to export more traces
+  or spans, we recommend using the Opik SDK.
+</Tip>

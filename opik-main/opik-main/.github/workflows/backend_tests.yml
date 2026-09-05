@@ -1,0 +1,47 @@
+name: "Backend Tests"
+run-name: "Backend Tests on ${{ github.ref_name }} by @${{ github.actor }}"
+
+on:
+  pull_request:
+    paths: 
+      - "apps/opik-backend/**"
+  push:
+    branches: 
+      - 'main'
+    paths: 
+      - "apps/opik-backend/**"
+
+  workflow_dispatch:
+
+jobs:
+    run-backend-tests:
+        runs-on: ubuntu-latest
+        timeout-minutes: 45
+        defaults:
+          run:
+            working-directory: apps/opik-backend/
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+              with:
+                fetch-depth: 1
+    
+            - name: Set up JDK 21
+              uses: actions/setup-java@v4
+              with:
+                java-version: '21'
+                distribution: 'corretto'
+                cache: maven
+    
+            - name: Run Tests for backend
+              env:
+                TESTCONTAINERS_REUSE_ENABLE: true
+              run: mvn clean test -Dmaven.test.failure.ignore=true -Dsurefire.rerunFailingTestsCount=3
+
+            - name: Publish Test Report
+              uses: EnricoMi/publish-unit-test-result-action/linux@v2
+              if: always()
+              with:
+                action_fail: true
+                check_name: Backend Tests Results
+                files: '**/target/surefire-reports/TEST-*.xml'
